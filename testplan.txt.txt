@@ -1,0 +1,30 @@
+Testplan 								Test description 
+bulk reset test					Reset for 5 clock cycle to test the default values. 
+								
+								Result: the default value of reset is changing before the reset is invoked, 
+								it might be that the the reset values are depened solely on the clock and not 
+								on the reset, the behaviour should have been after the clk reset is invoked, the 
+								data should have been reseted at that positive edge clk not before. 
+								The changes might or should be in the reset condition of the design code. 
+											
+bulk write test 				consequetively write for 5 clock cycle to monitor possible changes. 
+
+bulk read test 					consequetively read for 5 clock cycle to monitor possible changes. 
+								result: x value is showing , but after reset should have been x
+
+bulk write and read test		
+
+write at a unbounded address 
+
+
+read from a unbounded address 
+
+
+write, reset, and read test 
+
+
+reset and read test 
+
+
+
+	

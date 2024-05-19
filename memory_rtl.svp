@@ -1,0 +1,77 @@
+module memory_rtl(
+  input wire reset,
+  input wire clk,
+  input wire [7:0] addr,
+  input wire [7:0] data_in,
+  input wire valid,
+  input wire activate,
+  input wire wr_rd_enb,
+  output wire error,
+  output wire [7:0] data_out
+);
+
+  reg [7:0]  mem_arr [255:0];
+
+`pragma protect begin_protected
+`pragma protect version = 1
+`pragma protect encrypt_agent = "ModelSim" , encrypt_agent_info = "2020.1"
+`pragma protect key_keyowner = "Mentor Graphics Corporation" , key_keyname = "MGC-VERIF-SIM-RSA-2"
+`pragma protect key_method = "rsa"
+`pragma protect encoding = ( enctype = "base64" , line_length = 64 , bytes = 256 )
+`pragma protect key_block
+Rf1n0xsC2V50JQXTa/NGzBzLY4PcfVXk3YbpoEJlIlMPSsQxpLTsGjZQMxGDgB2w
+ltJP1MxleLyBHVvd3xe7SlCwDxc4EBXN7GNFop5CLgYczwI9Yw1ZwMO1fmzf9j/1
+4mkgU0nTvrM/hipcV7QK9oumIQ62j2YGwjQpyCckZ1d7X/f7GeYMTneaGIC3gkPG
+m6dsAWNdjHSh1/fXmPVfBrfWOwvaAysoD4XqJ1frZc/GkEHd1CnjwymyTEB/gBeu
+FnAB20eUKPRtdQcCtib0XgMG1g3SJe+f0wgSahXdZLx5G2D9hs2bVK7ioaDljq5s
+aj/bMMwYy82gsfJY+sY7gQ==
+`pragma protect data_method = "aes128-cbc"
+`pragma protect encoding = ( enctype = "base64" , line_length = 64 , bytes = 2128 )
+`pragma protect data_block
+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
+j3LUT5bXeLWGKi0csqqvTw==
+`pragma protect end_protected
+endmodule
