@@ -12,6 +12,9 @@ class memory_scoreboard;
 	typedef logic [7:0] addr; 
 	
 	packet exp_array [addr];
+	
+	static int FAIL;
+	static int PASS;
 
 	function new(string name, virtual memory_interface intf);
 		act_mb = new();
@@ -54,11 +57,20 @@ class memory_scoreboard;
 				$display ("exists");
 				exp_pkt_c = exp_array[act_pkt_c.addr];
 					if (exp_pkt_c.data === act_pkt_c.data && exp_pkt_c.addr === act_pkt_c.addr) begin 
-						$display ("[%0t] PASS TEST! With Value of DATA :: %0d ADDR :: %0d", $time, act_pkt_c.data, act_pkt_c.addr);
+						$display ("[%0t] PASS TEST! ACTUAL DATA :: %0d ADDR :: %0d. EXPECTED DATA :: %0d ADDR :: %0d", $time, act_pkt_c.data, act_pkt_c.addr, exp_pkt_c.data, exp_pkt_c.addr);
+						PASS++;
+						$display ("No of Passed test [%0d]", PASS);
 					end
+					else begin 
+						$display ("[%0t] FAIL TEST! ACTUAL DATA :: %0d ADDR :: %0d. EXPECTED DATA :: %0d ADDR :: %0d", $time, act_pkt_c.data, act_pkt_c.addr, exp_pkt_c.data, exp_pkt_c.addr);
+						FAIL++;
+						$display ("No of Failed test [%0d]", FAIL);
+					end 
 			end
 			else begin 
-				$display ("[%0t] FAILED TEST! With Value of DATA :: %0d ADDR :: %0d", $time, act_pkt_c.data, act_pkt_c.addr);
+				$display("FAIL: No expected packet found for ADDR: %0h", act_pkt_c.addr);
+				FAIL++;
+				$display ("No of Failed test [%0d]", FAIL);
 			end
 		end 
 	endtask 
