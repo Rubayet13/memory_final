@@ -15,7 +15,7 @@ class memory_test;
 
 	task bulk_write ();
 		env.agent.drv.reset();
-		for (int i = 0; i <= 2**8-1; i++) begin 	 	
+		for (int i = 0; i < (2**8)-1; i++) begin 	 	
 			env.agent.drv.write(i, $random);
 		end 
 	endtask 
@@ -23,14 +23,14 @@ class memory_test;
 
 	task bulk_read ();
 		env.agent.drv.reset();
-		for (int i = 0; i <= 2**8-1; i++) begin 		
+		for (int i = 0; i < (2**8)-1; i++) begin 		
 			env.agent.drv.read(i);
 		end 
 	endtask 
 
 	task bulk_write_read ();
 		env.agent.drv.reset();
-		for (int i = 0; i <= 2**8-1; i++) begin 	 	
+		for (int i = 0; i < (2**8)-1; i++) begin 	 	
 			env.agent.drv.write(i,$random);
 			env.agent.drv.read(i);
 		end 
@@ -40,8 +40,8 @@ class memory_test;
 		env.agent.drv.reset();
 		begin 	
 			env.agent.drv.write(2**8, $random);
-			env.agent.drv.write(2**8-1, $random);
-			env.agent.drv.write(2**8+1, $random);
+			env.agent.drv.write((2**8)-1, $random);
+			env.agent.drv.write((2**8)+1, $random);
 		end 
 	endtask 
 
@@ -49,8 +49,8 @@ class memory_test;
 		env.agent.drv.reset();
 		begin 	
 			env.agent.drv.read(2**8);
-			env.agent.drv.read(2**8-1);
-			env.agent.drv.read(2**8+1);
+			env.agent.drv.read((2**8)-1);
+			env.agent.drv.read((2**8)+1);
 		end 
 	endtask 
 
